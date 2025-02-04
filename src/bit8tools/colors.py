@@ -37,12 +37,16 @@ class Colors:
     UNDERLINE = "\033[4m"
 
     @staticmethod
-    def colorize(text: str, color: str) -> str:
+    def is_valid_color(color: str) -> bool:
         """
-        Aplica un color al texto y lo resetea al final.
         Valida que el color sea uno de los predefinidos.
-        """
 
+        Args:
+            color (str): color a validar.
+
+        Returns:
+            bool: True si el color es válido, False en caso contrario.
+        """
         valid_colors = [
             Colors.RED,
             Colors.GREEN,
@@ -53,8 +57,21 @@ class Colors:
             Colors.WHITE,
             Colors.DEFAULT
         ]
+        return color in valid_colors
 
-        if color not in valid_colors:
+    @staticmethod
+    def colorize(text: str, color: str) -> str:
+        """
+        Colorea el texto con el color especificado.
+
+        Args:
+            text (str): texto a colorear.
+            color (str): color a aplicar al texto.
+
+        Returns:
+            str: texto coloreado.
+        """
+        if not Colors.is_valid_color(color):
             raise ValueError(
                 "Color inválido. Usa los colores predefinidos en la clase Colors.")
 
