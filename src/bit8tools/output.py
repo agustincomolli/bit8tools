@@ -19,8 +19,7 @@ class Output:
             color (str): Color a aplicar al texto.
         """
         # Validar el color
-        if not Colors.is_valid_color(color):
-            color = Colors.DEFAULT
+        color = Colors.validate_color(color)
 
         text = Colors.colorize(text, color)
 
