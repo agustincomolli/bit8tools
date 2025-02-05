@@ -11,16 +11,16 @@ from .colors import Colors
 class Output:
     """Clase que contiene las funciones para imprimir texto con colores."""
     @staticmethod
-    def print(text: str, color: str) -> None:
+    def print(text: object, color: str) -> None:
         """Imprime un texto con un color.
 
         Args:
-            text (str): Texto a imprimir.
+            text (object): Texto a imprimir.
             color (str): Color a aplicar al texto.
         """
         # Validar el color
         color = Colors.validate_color(color)
 
-        text = Colors.colorize(text, color)
+        text = Colors.colorize(str(text), color)
 
         print(text)

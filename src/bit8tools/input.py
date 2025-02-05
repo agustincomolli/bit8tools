@@ -41,8 +41,8 @@ class Input:
         return f"{user_input}"
 
     @staticmethod
-    def int(prompt: str, color_prompt: str, color_input: str,
-            min_value: int = None, max_value: int = None) -> int:
+    def int_number(prompt: str, color_prompt: str, color_input: str,
+            min_value: int, max_value: int) -> int:
         """
         Solicita un número entero al usuario mostrando el mensaje en un color y la respuesta en 
         otro color.
@@ -82,8 +82,8 @@ class Input:
         return int(user_input)
 
     @staticmethod
-    def float(prompt: str, color_prompt: str, color_input: str,
-              min_value: int = None, max_value: int = None) -> float:
+    def float_number(prompt: str, color_prompt: str, color_input: str,
+              min_value: int, max_value: int) -> float:
         """
         Solicita un float al usuario mostrando el mensaje en un color y la respuesta en 
         otro color.
@@ -123,7 +123,7 @@ class Input:
         return float(user_input)
 
     @staticmethod
-    def bool(prompt: str, color_prompt: str, color_input: str) -> bool:
+    def yes_no(prompt: str, color_prompt: str, color_input: str) -> bool:
         """
         Solicita un booleano al usuario mostrando el mensaje en un color y la respuesta en 
         otro color.
