@@ -6,18 +6,21 @@ Biblioteca Python moderna para crear interfaces CLI elegantes con colores, valid
 
 ### Input
 Clase para manejo de entrada de datos con validación:
-- `number()`: Entrada y validación de números
 - `text()`: Entrada de texto
-- `date()`: Entrada y validación de fechas
-- `options()`: Selección entre opciones predefinidas
-- `email()`: Entrada y validación de correos electrónicos
-- `password()`: Entrada segura de contraseñas
+- `int_number()`: Entrada y validación de números enteros
+- `float_number()`: Entrada y validación de números decimales
+- `yes_no()`: Entrada de opciones sí/no
 
 ### Output
 Clase para mostrar información formateada:
 - `print()`: Impresión con colores
-- `tabulate()`: Muestra datos en formato tabla
-- `title()`: Muestra títulos estilizados
+- `show_warning()`: Muestra mensajes de advertencia
+- `show_error()`: Muestra mensajes de error
+- `confirm()`: Muestra mensajes de confirmación
+- `clear()`: Limpia la pantalla
+- `press_enter_to_continue()`: Pausa hasta que se presione Enter
+- `set_locale()`: Configura la localización
+- `format_currency()`: Formatea números como moneda
 
 ### Colors
 Clase base para manejo de colores en terminal:
@@ -37,22 +40,24 @@ pip install bit8tools
 from bit8tools import Input, Output, Colors
 
 # Entrada de datos
-nombre = Input.text("Ingrese su nombre:")
-edad = Input.number("Ingrese su edad:", min_value=0, max_value=120)
-correo = Input.email("Ingrese su correo:")
+nombre = Input.text("Ingrese su nombre:", Colors.GREEN, Colors.BLUE)
+edad = Input.int_number("Ingrese su edad:", Colors.GREEN, Colors.BLUE, 0, 120)
+peso = Input.float_number("Ingrese su peso:", Colors.GREEN, Colors.BLUE, 50, 150)
+continuar = Input.yes_no("¿Deseas continuar? (si/no):", Colors.GREEN, Colors.BLUE)
 
 # Salida formateada
-output = Output()
-output.title("Información del Usuario")
+Output.print(nombre, Colors.WHITE)
+Output.print(edad, Colors.WHITE)
+Output.print(peso, Colors.WHITE)
+Output.print(continuar, Colors.WHITE)
 
-# Mostrar datos en tabla
-datos = [
-    ["Campo", "Valor"],
-    ["Nombre", nombre],
-    ["Edad", edad],
-    ["Correo", correo]
-]
-output.tabulate(datos)
+Output.show_warning("Esto es un mensaje de advertencia.")
+Output.show_error("Esto es un mensaje de error.")
+Output.confirm("Esto es un mensaje de confirmación.")
+Output.clear()
+Output.print("Esto es un mensaje de limpieza.", Colors.RED)
+Output.set_locale("es_AR")
+Output.print(f"Mi sueldo es de {Output.format_currency(367000)}", Colors.GREEN)
 ```
 
 ## 🛠️ Requisitos
