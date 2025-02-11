@@ -8,7 +8,7 @@ Contenido
 import getpass
 import re
 from .colors import Colors
-
+from .output import Output
 
 class Input:
     """
@@ -277,3 +277,36 @@ class Input:
                 continue
 
             return password
+
+    @staticmethod
+    def menu(title: str, options: list, color_prompt: str, color_input: str) -> int:
+        """
+        Muestra un menú con las opciones especificadas y solicita al usuario que elija una opción.
+
+        Args:
+            title (str):    El título del menú
+            options (str):  Una lista de opciones a mostrar en el menú.
+
+        Returns:    La opción seleccionada por el usuario.
+        """
+
+        # Validar el color
+        color_prompt = Colors.validate_color(color_prompt)
+        color_input = Colors.validate_color(color_input)
+
+        # Solicitar el input al usuario.
+        while True:
+            Output.clear()
+            Output.print_title(title, color_prompt, "=")
+
+            for i, option in enumerate(options):
+                Output.print(f"{i+1} - {option}", color_prompt)
+
+            # Solicitar al usuario que elija una opción
+            choice = Input.text("\nElija una opción: ", color_prompt, color_input)
+                    # Verifica que la opción sea válida
+            if choice.isdigit() and int(choice) > 0 and int(choice) <= len(options):
+                # return options[int(choice)-1]
+                return int(choice)
+            Output.print("\nOpción inválida, intente de nuevo.", Colors.RED)
+            Output.press_enter_to_continue()

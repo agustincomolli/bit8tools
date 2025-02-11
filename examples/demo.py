@@ -54,8 +54,17 @@ def main() -> None:
     email = Input.email("Ingresa tu email: ", Colors.GREEN, Colors.BLUE)
     Output.print(email, Colors.WHITE)
 
-    password = Input.password("Ingresa tu contraseña: ", Colors.GREEN, Colors.BLUE)
+    password = Input.password("Ingresa tu contraseña: ",
+                              Colors.GREEN, Colors.BLUE)
     Output.print(password, Colors.WHITE)
+
+    Output.print_title("Esto es un título", Colors.GREEN, "=")
+
+    choice = Input.menu("Selecciona una opción: ",
+                        ["Opción 1", "Opción 2", "Opción 3"],
+                        Colors.GREEN, Colors.BLUE,)
+
+    Output.print(choice, Colors.WHITE)
 
 if __name__ == "__main__":
     main()

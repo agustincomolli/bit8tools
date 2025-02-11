@@ -180,3 +180,20 @@ class Output:
             str: Fecha formateada en el formato del locale configurado en la computadora.
         """
         return locale.format_string("%Y-%m-%d", date, grouping=True) + "\n"
+
+    @staticmethod
+    def print_title(title: str, color: str, underline: str = "*") -> None:
+        """Imprime un título con un color y un subrayado.
+
+        Args:
+            title (str): Título a imprimir.
+            color (str): Color del título.
+            underline (str, optional): Carácter de subrayado. Por defecto es "*".
+        """
+        # Validar el color
+        color = Colors.validate_color(color)
+
+        # Imprimir el título con el color especificado
+        print(Colors.colorize(title, color))
+        # Imprimir el subrayado con el color especificado
+        print(Colors.colorize(underline * len(title), color))
