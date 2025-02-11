@@ -47,6 +47,15 @@ def main() -> None:
     Output.print(f"Mi sueldo es de {Output.format_currency(367000)}",
                  Colors.GREEN)
 
+    date_birth = Input.date("Ingresa tu fecha de nacimiento: ",
+                            Colors.GREEN, Colors.BLUE)
+    Output.print(date_birth, Colors.WHITE)
+
+    email = Input.email("Ingresa tu email: ", Colors.GREEN, Colors.BLUE)
+    Output.print(email, Colors.WHITE)
+
+    password = Input.password("Ingresa tu contraseña: ", Colors.GREEN, Colors.BLUE)
+    Output.print(password, Colors.WHITE)
 
 if __name__ == "__main__":
     main()
