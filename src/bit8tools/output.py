@@ -8,25 +8,41 @@ Contenido
 import locale
 import os
 import time
+from datetime import datetime
 from .colors import Colors
+from .alignment import Alignment
 
 
 class Output:
     """Clase que contiene las funciones para imprimir texto con colores."""
     @staticmethod
-    def print(text: object, color: str) -> None:
-        """Imprime un texto con un color.
+    def print(text: object, color: str = Colors.DEFAULT,
+              alignment: str = Alignment.LEFT, width: int = 0) -> None:
+        """Imprime un texto con un color y alineación.
 
         Args:
             text (object): Texto a imprimir.
-            color (str): Color a aplicar al texto.
+            color (str, optional): Color a aplicar al texto.
+            alignment (str, optional): Alineación del texto ('left', 'center', 'right').
+            width (int, optional): Ancho para centrar el texto. Si no se proporciona, 
+            se usará el ancho de la terminal.
         """
         # Validar el color
         color = Colors.validate_color(color)
+        # Validar la alineación
+        alignment = Alignment.validate_alignment(alignment)
 
         text = Colors.colorize(str(text), color)
 
-        print(text)
+        if width == 0:
+            width = Output.get_console_size()[0]
+
+        if alignment == Alignment.CENTER:
+            print(text.center(width))
+        elif alignment == Alignment.RIGHT:
+            print(text.rjust(width))
+        else:
+            print(text.ljust(width))
 
     @staticmethod
     def clear() -> None:
@@ -170,16 +186,20 @@ class Output:
         return locale.format_string("%.2f%%", value, grouping=True)
 
     @staticmethod
-    def format_date(date: str) -> str:
-        """Formatea una fecha en el formato AAAA-MM-DD.
+    def format_date(date_str: str) -> str:
+        """Formatea una fecha en el formato del locale configurado en la computadora.
 
         Args:
-            date (str): Fecha a formatear en el formato AAAA-MM-DD.
+            date_str (str): Fecha en formato AAAA-MM-DD.
 
         Returns:
-            str: Fecha formateada en el formato del locale configurado en la computadora.
+            str: Fecha formateada en el formato local.
         """
-        return locale.format_string("%Y-%m-%d", date, grouping=True) + "\n"
+        # Convertir la fecha de string a objeto datetime.date
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+
+        # Formatear la fecha según el locale
+        return date_obj.strftime("%x") + "\n"  # "%x" usa el formato de fecha del locale
 
     @staticmethod
     def print_title(title: str, color: str, underline: str = "*") -> None:

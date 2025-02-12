@@ -66,5 +66,10 @@ def main() -> None:
 
     Output.print(choice, Colors.WHITE)
 
+    Output.print("Texto alineado a la izquierda")
+    Output.print("Texto centrado", color=Colors.BLUE, alignment='center')
+    Output.print("Texto alineado a la derecha", alignment='right')
+
+
 if __name__ == "__main__":
     main()
