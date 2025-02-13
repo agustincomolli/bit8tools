@@ -56,7 +56,11 @@ class Output:
         Returns:
             tuple[int, int]: Tamaño de la consola.
         """
-        return os.get_terminal_size()
+        try:
+            return os.get_terminal_size()
+        except OSError:
+            # Proporcionar un tamaño de consola predeterminado
+            return (80, 24)
 
     @staticmethod
     def press_enter_to_continue() -> None:
@@ -199,7 +203,8 @@ class Output:
         date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
 
         # Formatear la fecha según el locale
-        return date_obj.strftime("%x") + "\n"  # "%x" usa el formato de fecha del locale
+        # "%x" usa el formato de fecha del locale
+        return date_obj.strftime("%x") + "\n"
 
     @staticmethod
     def print_title(title: str, color: str, underline: str = "*") -> None:

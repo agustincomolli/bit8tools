@@ -10,6 +10,7 @@ import re
 from .colors import Colors
 from .output import Output
 
+
 class Input:
     """
     Clase que contiene las funciones para solicitar input al usuario con colores.
@@ -85,15 +86,17 @@ class Input:
 
     @staticmethod
     def float_number(prompt: str, color_prompt: str, color_input: str,
-                     min_value: int, max_value: int) -> float:
+                     min_value: float, max_value: float) -> float:
         """
-        Solicita un float al usuario mostrando el mensaje en un color y la respuesta en 
+        Solicita un número flotante al usuario mostrando el mensaje en un color y la respuesta en 
         otro color.
 
         Args:
             prompt (str): El mensaje a mostrar al usuario.
             color_prompt: El color en el que se mostrará el mensaje.
             color_input: El color en el que se mostrará la respuesta del usuario.
+            min_value: El valor mínimo permitido.
+            max_value: El valor máximo permitido.
 
         Returns: 
             float: La respuesta del usuario.
@@ -111,18 +114,17 @@ class Input:
             # Solicitar el input al usuario.
             user_input = input(message_colored)
             print(Colors.DEFAULT, end="")
-            # Validar el input.
-            if user_input.isdigit():
-                if not min_value is None and not max_value is None:
-                    if float(user_input) < min_value or float(user_input) > max_value:
-                        print(f"El valor debe estar entre {
-                              min_value} y {max_value}.")
-                        continue
-                break
-            print("El valor debe ser un número entero.")
-
-        # Devolver la respuesta del usuario con el color por defecto.
-        return float(user_input)
+            try:
+                # Convertir el input a float.
+                user_input_float = float(user_input)
+                # Validar el rango.
+                if min_value <= user_input_float <= max_value:
+                    return user_input_float
+                else:
+                    print(
+                        f"El valor debe estar entre {min_value} y {max_value}.")
+            except ValueError:
+                print("El valor debe ser un número flotante.")
 
     @staticmethod
     def yes_no(prompt: str, color_prompt: str, color_input: str) -> bool:
@@ -224,7 +226,7 @@ class Input:
             # Validar el input.
             if re.match(pattern, user_input):
                 return user_input
-            print("\nPor favor ingrese una fecha valida.")
+            print("\nPor favor ingrese una fecha valida en formato dd/mm/yyyy.")
 
     @staticmethod
     def password(prompt: str, color_prompt: str, color_input: str) -> str:
@@ -284,29 +286,31 @@ class Input:
         Muestra un menú con las opciones especificadas y solicita al usuario que elija una opción.
 
         Args:
-            title (str):    El título del menú
-            options (str):  Una lista de opciones a mostrar en el menú.
+            title (str): El título del menú.
+            options (list): Una lista de opciones a mostrar en el menú.
+            color_prompt (str): El color en el que se mostrará el mensaje.
+            color_input (str): El color en el que se mostrará la respuesta del usuario.
 
-        Returns:    La opción seleccionada por el usuario.
+        Returns:
+            int: La opción seleccionada por el usuario.
         """
 
         # Validar el color
         color_prompt = Colors.validate_color(color_prompt)
         color_input = Colors.validate_color(color_input)
 
-        # Solicitar el input al usuario.
         while True:
             Output.clear()
             Output.print_title(title, color_prompt, "=")
 
             for i, option in enumerate(options):
-                Output.print(f"{i+1} - {option}", color_prompt)
+                Output.print(f"{i + 1} - {option}", color_prompt)
 
             # Solicitar al usuario que elija una opción
-            choice = Input.text("\nElija una opción: ", color_prompt, color_input)
-                    # Verifica que la opción sea válida
-            if choice.isdigit() and int(choice) > 0 and int(choice) <= len(options):
-                # return options[int(choice)-1]
+            choice = Input.text("\nElija una opción: ",
+                                color_prompt, color_input)
+            # Verifica que la opción sea válida
+            if choice.isdigit() and 1 <= int(choice) <= len(options):
                 return int(choice)
             Output.print("\nOpción inválida, intente de nuevo.", Colors.RED)
             Output.press_enter_to_continue()

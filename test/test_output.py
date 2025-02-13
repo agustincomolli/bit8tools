@@ -27,17 +27,17 @@ def test_get_console_size(monkeypatch):
 def test_show_warning(monkeypatch):
     """Test para la función show_warning."""
     monkeypatch.setattr('builtins.input', lambda _: 's')
-    assert Output.show_warning("This is a warning message") == True
+    assert Output.show_warning("This is a warning message") is True
     monkeypatch.setattr('builtins.input', lambda _: 'n')
-    assert Output.show_warning("This is a warning message") == False
+    assert Output.show_warning("This is a warning message") is False
 
 
 def test_confirm(monkeypatch):
     """Test para la función confirm."""
     monkeypatch.setattr('builtins.input', lambda _: 's')
-    assert Output.confirm("Are you sure?") == True
+    assert Output.confirm("Are you sure?") is True
     monkeypatch.setattr('builtins.input', lambda _: 'n')
-    assert Output.confirm("Are you sure?") == False
+    assert Output.confirm("Are you sure?") is False
 
 
 def test_typewriter_effect(monkeypatch, capsys):
