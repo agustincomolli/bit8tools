@@ -3,7 +3,7 @@ Ejemplo de uso de la clase Input en el módulo bit8tools.
 
 Para ejecutar el ejemplo, ejecutar python -m examples.demo.
 """
-from src.bit8tools import Input, Output, Colors
+from src.bit8tools import Input, Output, Colors, Alignment
 
 
 def main() -> None:
@@ -58,7 +58,7 @@ def main() -> None:
                               Colors.GREEN, Colors.BLUE)
     Output.print(password, Colors.WHITE)
 
-    Output.print_title("Esto es un título", Colors.GREEN, "=")
+    Output.print_title("Esto es un título", Colors.GREEN, "=", Alignment.CENTER)
 
     choice = Input.menu("Selecciona una opción: ",
                         ["Opción 1", "Opción 2", "Opción 3"],
@@ -67,8 +67,8 @@ def main() -> None:
     Output.print(choice, Colors.WHITE)
 
     Output.print("Texto alineado a la izquierda")
-    Output.print("Texto centrado", color=Colors.BLUE, alignment='center')
-    Output.print("Texto alineado a la derecha", alignment='right')
+    Output.print("Texto centrado", color=Colors.BLUE, alignment=Alignment.CENTER)
+    Output.print("Texto alineado a la derecha", alignment=Alignment.RIGHT)
 
 
 if __name__ == "__main__":

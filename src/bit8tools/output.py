@@ -24,7 +24,7 @@ class Output:
             text (object): Texto a imprimir.
             color (str, optional): Color a aplicar al texto.
             alignment (str, optional): Alineación del texto ('left', 'center', 'right').
-            width (int, optional): Ancho para centrar el texto. Si no se proporciona, 
+            width (int, optional): Ancho para centrar el texto. Si no se proporciona,
             se usará el ancho de la terminal.
         """
         # Validar el color
@@ -96,13 +96,13 @@ class Output:
 
     @staticmethod
     def confirm(message: str) -> bool:
-        """Muestra un mensaje de confirmación al usuario y solicita una respuesta 
+        """Muestra un mensaje de confirmación al usuario y solicita una respuesta
         afirmativa o negativa.
 
         Args:
             message (str): Mensaje de confirmación a mostrar.
 
-        Returns:    
+        Returns:
             bool: True si el usuario responde afirmativamente, False en caso contrario.
 
         """
@@ -114,8 +114,8 @@ class Output:
 
     @staticmethod
     def typewriter_effect(text: str) -> None:
-        """Imprime los caracteres de la cadena de texto uno por uno en un intervalo de 
-        tiempo determinado para simular el efecto de que se está escribiendo en tiempo 
+        """Imprime los caracteres de la cadena de texto uno por uno en un intervalo de
+        tiempo determinado para simular el efecto de que se está escribiendo en tiempo
         real.
 
         Args:
@@ -207,7 +207,8 @@ class Output:
         return date_obj.strftime("%x") + "\n"
 
     @staticmethod
-    def print_title(title: str, color: str, underline: str = "*") -> None:
+    def print_title(title: str, color: str, underline: str = "*",
+                    alignment: str = Alignment.LEFT, width: int = 0) -> None:
         """Imprime un título con un color y un subrayado.
 
         Args:
@@ -218,7 +219,22 @@ class Output:
         # Validar el color
         color = Colors.validate_color(color)
 
-        # Imprimir el título con el color especificado
-        print(Colors.colorize(title, color))
-        # Imprimir el subrayado con el color especificado
-        print(Colors.colorize(underline * len(title), color))
+
+        if width == 0:
+            width = Output.get_console_size()[0]
+
+        if alignment == Alignment.CENTER:
+            # Imprimir el título con el color especificado
+            print(Colors.colorize(title.center(width), color))
+            # Imprimir el subrayado con el color especificado
+            print(Colors.colorize((underline * len(title)).center(width), color))
+        elif alignment == Alignment.RIGHT:
+            # Imprimir el título con el color especificado
+            print(Colors.colorize(title.rjust(width), color))
+            # Imprimir el subrayado con el color especificado
+            print(Colors.colorize((underline * len(title)).rjust(width), color))
+        else:
+            # Imprimir el título con el color especificado
+            print(Colors.colorize(title, color))
+            # Imprimir el subrayado con el color especificado
+            print(Colors.colorize(underline * len(title), color))
