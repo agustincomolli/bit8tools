@@ -124,7 +124,7 @@ class Input:
                     print(
                         f"El valor debe estar entre {min_value} y {max_value}.")
             except ValueError:
-                print("El valor debe ser un número flotante.")
+                print("El valor debe ser un número con decimales.")
 
     @staticmethod
     def yes_no(prompt: str, color_prompt: str, color_input: str) -> bool:
@@ -192,7 +192,7 @@ class Input:
             # Validar el input.
             if re.match(pattern, user_input):
                 return user_input
-            print("\nPor favor ingrese un email valido.")
+            print("\nPor favor ingrese un email válido.")
 
     @staticmethod
     def date(prompt: str, color_prompt: str, color_input: str) -> str:
@@ -226,7 +226,8 @@ class Input:
             # Validar el input.
             if re.match(pattern, user_input):
                 return user_input
-            print("\nPor favor ingrese una fecha valida en formato dd/mm/yyyy.")
+            print("\nPor favor ingrese una fecha válida en formato " +
+                  "dd/mm/yyyy (por ejemplo, 25/12/2025).")
 
     @staticmethod
     def password(prompt: str, color_prompt: str, color_input: str) -> str:
@@ -312,5 +313,5 @@ class Input:
             # Verifica que la opción sea válida
             if choice.isdigit() and 1 <= int(choice) <= len(options):
                 return int(choice)
-            Output.print("\nOpción inválida, intente de nuevo.", Colors.RED)
+            Output.show_error("\nOpción inválida, intente de nuevo.")
             Output.press_enter_to_continue()
