@@ -219,7 +219,6 @@ class Output:
         # Validar el color
         color = Colors.validate_color(color)
 
-
         if width == 0:
             width = Output.get_console_size()[0]
 
@@ -238,3 +237,19 @@ class Output:
             print(Colors.colorize(title, color))
             # Imprimir el subrayado con el color especificado
             print(Colors.colorize(underline * len(title), color))
+
+    @staticmethod
+    def show_progress_bar(iteration: int, total: int, length: int = 50) -> None:
+        """Muestra una barra de progreso en la consola.
+
+        Args:
+            iteration (int): Iteración actual.
+            total (int): Número total de iteraciones.
+            length (int, optional): Longitud de la barra de progreso. Por defecto es 50.
+        """
+        percent = f"{100 * (iteration / float(total)):.1f}"
+        filled_length = int(length * iteration // total)
+        progress_bar = '█' * filled_length + '-' * (length - filled_length)
+        print(f'\r|{progress_bar}| {percent}% Completo', end='\r')
+        if iteration == total:
+            print()

@@ -10,6 +10,10 @@ Clase para manejo de entrada de datos con validación:
 - `int_number()`: Entrada y validación de números enteros
 - `float_number()`: Entrada y validación de números decimales
 - `yes_no()`: Entrada de opciones sí/no
+- `date()`: Entrada y validación de fechas
+- `email()`: Entrada y validación de correos electrónicos
+- `password()`: Entrada de contraseñas
+- `menu()`: Entrada de selección de menú
 
 ### Output
 Clase para mostrar información formateada:
@@ -21,12 +25,24 @@ Clase para mostrar información formateada:
 - `press_enter_to_continue()`: Pausa hasta que se presione Enter
 - `set_locale()`: Configura la localización
 - `format_currency()`: Formatea números como moneda
+- `print_title()`: Imprime un título con formato
+- `show_progress_bar()`: Muestra una barra de progreso
 
 ### Colors
 Clase base para manejo de colores en terminal:
 - Códigos de color para texto
 - Códigos de color para fondos
 - Utilidades de formateo
+
+### Alignment
+Clase para manejo de alineación de texto:
+- `LEFT`: Alineación a la izquierda
+- `CENTER`: Alineación centrada
+- `RIGHT`: Alineación a la derecha
+
+### Tabular
+Clase para manejo de tablas en terminal:
+- `tabulate()`: Genera una tabla con los datos proporcionados
 
 ## 📦 Instalación
 
@@ -37,7 +53,7 @@ pip install bit8tools
 ## 🎮 Ejemplo de Uso
 
 ```python
-from bit8tools import Input, Output, Colors
+from bit8tools import Input, Output, Colors, Alignment, Tabular
 
 # Entrada de datos
 nombre = Input.text("Ingrese su nombre:", Colors.GREEN, Colors.BLUE)
@@ -58,6 +74,37 @@ Output.clear()
 Output.print("Esto es un mensaje de limpieza.", Colors.RED)
 Output.set_locale("es_AR")
 Output.print(f"Mi sueldo es de {Output.format_currency(367000)}", Colors.GREEN)
+
+# Alineación de texto
+Output.print("Texto alineado a la izquierda")
+Output.print("Texto centrado", color=Colors.BLUE, alignment=Alignment.CENTER)
+Output.print("Texto alineado a la derecha", alignment=Alignment.RIGHT)
+
+# Datos de ejemplo para la tabla
+data = [
+    {
+        "nombre": "Juan Carlos González",
+        "descripción": "Este es un texto muy largo que necesitará ser dividido",
+        "ciudad": "Madrid"
+    },
+    {
+        "nombre": "María",
+        "descripción": "Texto corto",
+        "ciudad": "Barcelona"
+    }
+]
+
+# Usar el método estático directamente
+Tabular.tabulate(data, title="Lista de Usuarios")
+
+# O especificar un ancho máximo
+Tabular.tabulate(data, title="Lista de Usuarios", max_width=80)
+
+# Barra de progreso
+total_iterations = 100
+for i in range(total_iterations + 1):
+    Output.show_progress_bar(i, total_iterations)
+    time.sleep(0.1)
 ```
 
 ## 🛠️ Requisitos
@@ -71,9 +118,3 @@ Las contribuciones son bienvenidas. Por favor, siéntete libre de:
 - Reportar bugs
 - Sugerir nuevas funcionalidades
 - Enviar pull requests
-
-## ✨ Próximas Funcionalidades
-- Validación personalizada de entrada
-- Más opciones de formato para tablas
-- Barras de progreso
-- Menús interactivos

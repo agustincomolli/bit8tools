@@ -7,5 +7,6 @@ from .alignment import Alignment
 from .colors import Colors
 from .input import Input
 from .output import Output
+from .tabular import Tabular
 
-__all__ = ['Alignment', 'Colors', 'Input', 'Output']
+__all__ = ['Alignment', 'Colors', 'Input', 'Output', 'Tabular']

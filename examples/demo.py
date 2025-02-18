@@ -3,7 +3,8 @@ Ejemplo de uso de la clase Input en el módulo bit8tools.
 
 Para ejecutar el ejemplo, ejecutar python -m examples.demo.
 """
-from src.bit8tools import Input, Output, Colors, Alignment
+import time
+from src.bit8tools import Input, Output, Colors, Alignment, Tabular
 
 
 def main() -> None:
@@ -58,7 +59,8 @@ def main() -> None:
                               Colors.GREEN, Colors.BLUE)
     Output.print(password, Colors.WHITE)
 
-    Output.print_title("Esto es un título", Colors.GREEN, "=", Alignment.CENTER)
+    Output.print_title("Esto es un título", Colors.GREEN,
+                       "=", Alignment.CENTER)
 
     choice = Input.menu("Selecciona una opción: ",
                         ["Opción 1", "Opción 2", "Opción 3"],
@@ -67,8 +69,39 @@ def main() -> None:
     Output.print(choice, Colors.WHITE)
 
     Output.print("Texto alineado a la izquierda")
-    Output.print("Texto centrado", color=Colors.BLUE, alignment=Alignment.CENTER)
+    Output.print("Texto centrado", color=Colors.BLUE,
+                 alignment=Alignment.CENTER)
     Output.print("Texto alineado a la derecha", alignment=Alignment.RIGHT)
+
+    # Datos de ejemplo para la tabla
+    data = [
+        {
+            "nombre": "Juan Carlos González",
+            "descripción": "Este es un texto muy largo que necesitará ser dividido",
+            "ciudad": "Madrid"
+        },
+        {
+            "nombre": "María",
+            "descripción": "Texto corto",
+            "ciudad": "Barcelona"
+        }
+    ]
+
+    # Usar el método estático directamente
+    Tabular.tabulate(data, title="Lista de Usuarios")
+
+    # O especificar un ancho máximo
+    Tabular.tabulate(data, title="Lista de Usuarios", max_width=80)
+
+    # Número total de iteraciones
+    total_iterations = 100
+
+    # Simular un proceso con un bucle for
+    for i in range(total_iterations + 1):
+        # Llamar a la función show_progress_bar para actualizar la barra de progreso
+        Output.show_progress_bar(i, total_iterations)
+        # Simular un trabajo con una pausa
+        time.sleep(0.1)
 
 
 if __name__ == "__main__":
