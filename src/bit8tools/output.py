@@ -215,28 +215,13 @@ class Output:
             title (str): Título a imprimir.
             color (str): Color del título.
             underline (str, optional): Carácter de subrayado. Por defecto es "*".
+            alignment (str, optional): Alineación del texto ('left', 'center', 'right').
+            width (int, optional): Ancho para centrar el texto. Si no se proporciona,
+            se usará el ancho de la terminal.
         """
-        # Validar el color
-        color = Colors.validate_color(color)
-
-        if width == 0:
-            width = Output.get_console_size()[0]
-
-        if alignment == Alignment.CENTER:
-            # Imprimir el título con el color especificado
-            print(Colors.colorize(title.center(width), color))
-            # Imprimir el subrayado con el color especificado
-            print(Colors.colorize((underline * len(title)).center(width), color))
-        elif alignment == Alignment.RIGHT:
-            # Imprimir el título con el color especificado
-            print(Colors.colorize(title.rjust(width), color))
-            # Imprimir el subrayado con el color especificado
-            print(Colors.colorize((underline * len(title)).rjust(width), color))
-        else:
-            # Imprimir el título con el color especificado
-            print(Colors.colorize(title, color))
-            # Imprimir el subrayado con el color especificado
-            print(Colors.colorize(underline * len(title), color))
+        Output.print(title, color=color, alignment=alignment, width=width)
+        Output.print(underline * len(title), color=color,
+                     alignment=alignment, width=width)
 
     @staticmethod
     def show_progress_bar(iteration: int, total: int, length: int = 50) -> None:
