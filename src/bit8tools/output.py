@@ -219,7 +219,7 @@ class Output:
             width (int, optional): Ancho para centrar el texto. Si no se proporciona,
             se usará el ancho de la terminal.
         """
-        Output.print(title.capitalize(), color=color, alignment=alignment, width=width)
+        Output.print(title.title(), color=color, alignment=alignment, width=width)
         Output.print(underline * len(title), color=color,
                      alignment=alignment, width=width)
 
