@@ -207,14 +207,18 @@ class Output:
         try:
             # Establecer nuevo locale si se especifica
             if custom_locale:
-                locale.setlocale(locale.LC_TIME, custom_locale)
+                try:
+                    locale.setlocale(locale.LC_TIME, custom_locale)
+                except locale.Error:
+                    # Si falla, mantener el locale actual (equivalente a custom_locale="")
+                    pass
 
             if short_format:
                 # %x: formato de fecha corto según el locale
                 return date.strftime("%x")
-            else:
-                # Formato largo: "20 de febrero de 2025"
-                return date.strftime("%d de %B de %Y").lower()
+
+            # Formato largo: "20 de febrero de 2025"
+            return date.strftime("%d de %B de %Y").lower()
 
         finally:
             # Restaurar el locale original si se cambió
