@@ -223,7 +223,11 @@ class Output:
         finally:
             # Restaurar el locale original si se cambió
             if custom_locale:
-                locale.setlocale(locale.LC_TIME, current_locale)
+                try:
+                    locale.setlocale(locale.LC_TIME, current_locale)
+                except locale.Error:
+                    # Si falla, mantener el locale actual
+                    pass
 
     @staticmethod
     def print_title(title: str, color: str, underline: str = "*",
