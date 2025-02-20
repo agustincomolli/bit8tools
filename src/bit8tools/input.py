@@ -16,7 +16,8 @@ class Input:
     Clase que contiene las funciones para solicitar input al usuario con colores.
     """
     @staticmethod
-    def text(prompt: str, color_prompt: str, color_input: str) -> str:
+    def text(prompt: str, color_prompt: str = Colors.DEFAULT,
+             color_input: str = Colors.DEFAULT) -> str:
         """
         Solicita un input al usuario mostrando el mensaje en un color y la respuesta en otro color.
 
@@ -44,8 +45,9 @@ class Input:
         return f"{user_input}"
 
     @staticmethod
-    def int_number(prompt: str, color_prompt: str, color_input: str,
-                   min_value: int, max_value: int) -> int:
+    def int_number(prompt: str, color_prompt: str = Colors.DEFAULT,
+                   color_input: str = Colors.DEFAULT,
+                   min_value: int = 0, max_value: int = 0) -> int:
         """
         Solicita un número entero al usuario mostrando el mensaje en un color y la respuesta en 
         otro color.
@@ -85,8 +87,9 @@ class Input:
         return int(user_input)
 
     @staticmethod
-    def float_number(prompt: str, color_prompt: str, color_input: str,
-                     min_value: float, max_value: float) -> float:
+    def float_number(prompt: str, color_prompt: str = Colors.DEFAULT,
+                     color_input: str = Colors.DEFAULT,
+                     min_value: float = 0, max_value: float = 0) -> float:
         """
         Solicita un número flotante al usuario mostrando el mensaje en un color y la respuesta en 
         otro color.

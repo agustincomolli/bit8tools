@@ -8,7 +8,6 @@ Contenido
 import locale
 import os
 import time
-from datetime import datetime
 from .colors import Colors
 from .alignment import Alignment
 
@@ -190,21 +189,37 @@ class Output:
         return locale.format_string("%.2f%%", value, grouping=True)
 
     @staticmethod
-    def format_date(date_str: str) -> str:
-        """Formatea una fecha en el formato del locale configurado en la computadora.
+    def format_date(date, custom_locale="", short_format=True):
+        """Formatea una fecha según el locale actual o uno específico.
 
         Args:
-            date_str (str): Fecha en formato AAAA-MM-DD.
+            date: Objeto date a formatear
+            custom_locale: Locale específico a usar (opcional)
+            short_format: True para formato corto (20/02/2025), False para 
+            formato largo (20 de febrero de 2025)
 
         Returns:
-            str: Fecha formateada en el formato local.
+            str: Fecha formateada según el locale y formato especificado
         """
-        # Convertir la fecha de string a objeto datetime.date
-        date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+        # Guardar el locale actual
+        current_locale = locale.getlocale()[0]
 
-        # Formatear la fecha según el locale
-        # "%x" usa el formato de fecha del locale
-        return date_obj.strftime("%x") + "\n"
+        try:
+            # Establecer nuevo locale si se especifica
+            if custom_locale:
+                locale.setlocale(locale.LC_TIME, custom_locale)
+
+            if short_format:
+                # %x: formato de fecha corto según el locale
+                return date.strftime("%x")
+            else:
+                # Formato largo: "20 de febrero de 2025"
+                return date.strftime("%d de %B de %Y").lower()
+
+        finally:
+            # Restaurar el locale original si se cambió
+            if custom_locale:
+                locale.setlocale(locale.LC_TIME, current_locale)
 
     @staticmethod
     def print_title(title: str, color: str, underline: str = "*",
@@ -219,7 +234,8 @@ class Output:
             width (int, optional): Ancho para centrar el texto. Si no se proporciona,
             se usará el ancho de la terminal.
         """
-        Output.print(title.title(), color=color, alignment=alignment, width=width)
+        Output.print(title.title(), color=color,
+                     alignment=alignment, width=width)
         Output.print(underline * len(title), color=color,
                      alignment=alignment, width=width)
 

@@ -1,14 +1,16 @@
 """
-Ejemplo de uso de la clase Input en el módulo bit8tools.
+Ejemplo de uso de todas las funciones del proyecto bit8tools.
 
 Para ejecutar el ejemplo, ejecutar python -m examples.demo.
 """
 import time
+from datetime import datetime
 from src.bit8tools import Input, Output, Colors, Alignment, Tabular
 
 
 def main() -> None:
     """ Función principal del módulo. """
+    # Entrada de datos
     name = Input.text("Ingresa tu nombre: ", Colors.GREEN, Colors.BLUE)
     Output.print(name, Colors.WHITE)
 
@@ -24,30 +26,6 @@ def main() -> None:
         "¿Deseas continuar? (si/no): ", Colors.GREEN, Colors.BLUE)
     Output.print(next_step, Colors.WHITE)
 
-    Output.press_enter_to_continue()
-
-    Output.show_warning("Esto es un mensaje de advertencia.")
-
-    Output.press_enter_to_continue()
-
-    Output.show_error("Esto es un mensaje de error.")
-
-    Output.press_enter_to_continue()
-
-    Output.confirm("Esto es un mensaje de confirmación.")
-
-    Output.press_enter_to_continue()
-
-    Output.clear()
-    Output.print("Esto es un mensaje de limpieza.", Colors.RED)
-
-    Output.print(
-        f"Hola {name}, tienes {age} años y pesas {weight} kg.", Colors.WHITE)
-
-    Output.set_locale("es_AR")
-    Output.print(f"Mi sueldo es de {Output.format_currency(367000)}",
-                 Colors.GREEN)
-
     date_birth = Input.date("Ingresa tu fecha de nacimiento: ",
                             Colors.GREEN, Colors.BLUE)
     Output.print(date_birth, Colors.WHITE)
@@ -59,18 +37,23 @@ def main() -> None:
                               Colors.GREEN, Colors.BLUE)
     Output.print(password, Colors.WHITE)
 
-    Output.print_title("Esto es un título", Colors.GREEN,
-                       "=", Alignment.CENTER)
-
     choice = Input.menu("Selecciona una opción: ",
                         ["Opción 1", "Opción 2", "Opción 3"],
-                        Colors.GREEN, Colors.BLUE,)
-
+                        Colors.GREEN, Colors.BLUE)
     Output.print(choice, Colors.WHITE)
 
+    # Salida formateada
+    Output.show_warning("Esto es un mensaje de advertencia.")
+    Output.show_error("Esto es un mensaje de error.")
+    Output.confirm("Esto es un mensaje de confirmación.")
+    Output.clear()
+    Output.print("Esto es un mensaje de limpieza.", Colors.RED)
+    Output.set_locale("es_AR")
+    Output.print(f"Mi sueldo es de {Output.format_currency(367000)}", Colors.GREEN)
+
+    # Alineación de texto
     Output.print("Texto alineado a la izquierda")
-    Output.print("Texto centrado", color=Colors.BLUE,
-                 alignment=Alignment.CENTER)
+    Output.print("Texto centrado", color=Colors.BLUE, alignment=Alignment.CENTER)
     Output.print("Texto alineado a la derecha", alignment=Alignment.RIGHT)
 
     # Datos de ejemplo para la tabla
@@ -93,15 +76,26 @@ def main() -> None:
     # O especificar un ancho máximo
     Tabular.tabulate(data, title="Lista de Usuarios", max_width=80)
 
-    # Número total de iteraciones
+    # Barra de progreso
     total_iterations = 100
-
-    # Simular un proceso con un bucle for
     for i in range(total_iterations + 1):
-        # Llamar a la función show_progress_bar para actualizar la barra de progreso
         Output.show_progress_bar(i, total_iterations)
-        # Simular un trabajo con una pausa
         time.sleep(0.1)
+
+    # Efecto de máquina de escribir
+    Output.typewriter_effect("Esto es un efecto de máquina de escribir.")
+
+    # Formateo de números
+    Output.print(f"Número entero formateado: {Output.format_int(1000)}", Colors.WHITE)
+    Output.print(f"Número decimal formateado: {Output.format_float(1234.56)}", Colors.WHITE)
+    Output.print(f"Porcentaje formateado: {Output.format_percentage(99.99)}", Colors.WHITE)
+
+    # Formateo de fecha
+    current_date = datetime.now()
+    Output.print(f"Fecha formateada: {Output.format_date(current_date)}", Colors.WHITE)
+
+    # Título con subrayado
+    Output.print_title("Esto es un título", Colors.GREEN, "=", Alignment.CENTER)
 
 
 if __name__ == "__main__":
