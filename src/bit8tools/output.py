@@ -8,6 +8,7 @@ Contenido
 import locale
 import os
 import time
+from datetime import date as DateType
 from .colors import Colors
 from .alignment import Alignment
 
@@ -189,20 +190,20 @@ class Output:
         return locale.format_string("%.2f%%", value, grouping=True)
 
     @staticmethod
-    def format_date(date, custom_locale="", short_format=True):
+    def format_date(date: DateType, custom_locale: str = "", short_format: bool = True) -> str:
         """Formatea una fecha según el locale actual o uno específico.
 
         Args:
-            date: Objeto date a formatear
-            custom_locale: Locale específico a usar (opcional)
-            short_format: True para formato corto (20/02/2025), False para 
+            date (datetime.date): Objeto date a formatear
+            custom_locale (str): Locale específico a usar (opcional)
+            short_format (bool): True para formato corto (20/02/2025), False para 
             formato largo (20 de febrero de 2025)
 
         Returns:
             str: Fecha formateada según el locale y formato especificado
         """
         # Guardar el locale actual
-        current_locale = locale.getlocale()[0]
+        current_locale = locale.getlocale(locale.LC_TIME)
 
         try:
             # Establecer nuevo locale si se especifica
