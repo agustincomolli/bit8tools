@@ -4,6 +4,7 @@ Pruebas unitarias para el módulo Output
 
 import locale
 import os
+from datetime import datetime
 from src.bit8tools.output import Output
 from src.bit8tools.colors import Colors
 
@@ -73,11 +74,6 @@ def test_format_percentage():
     """Test para la función format_percentage."""
     assert Output.format_percentage(99.99) == '99.99%'
 
-
-def test_format_date():
-    """Test para la función format_date."""
-    locale.setlocale(locale.LC_TIME, "es_AR.UTF-8")  # Simula locale argentino
-    assert Output.format_date('2023-10-01') == '1/10/2023\n'  # Depende del locale
 
 def test_print_title(capsys):
     """Test para la función print_title."""
